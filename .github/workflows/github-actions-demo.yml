@@ -14,6 +14,6 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r .github/workflows/requirements.txt
       - name: Run Script
-        run: python titan.py
+        run: python .github/workflows/titan.py
