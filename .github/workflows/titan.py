@@ -18,7 +18,8 @@ def daily_task():
     # SQL queries
     check_query = f"SELECT * FROM dataturn WHERE datet = '{date_short}'"
     #print(check_query   )
-    delete_query = f"DELETE FROM dataturn WHERE datet = '{date_short}'"
+    #delete_query = f"DELETE FROM dataturn WHERE datet = '{date_short}'"
+    delete_query = f"DELETE FROM dataturn WHERE datet = '24:10:01'"
     #print(delete_query)
 
     try:
