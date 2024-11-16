@@ -11,16 +11,11 @@ def daily_task():
     # Get the current date and convert to 'YY-MM-DD' format
     current_date = datetime.now().strftime("%Y-%m-%d")
     date_short = datetime.now().strftime("%y:%m:%d")
-
-    #print(current_date)
-    #print(date_short)
     
     # SQL queries
-    check_query = f"SELECT * FROM dataturn WHERE datet = '{date_short}'"
-    #print(check_query   )
-    #delete_query = f"DELETE FROM dataturn WHERE datet = '{date_short}'"
-    delete_query = f"DELETE FROM dataturn WHERE Datet = '24:10:01'"
-    #print(delete_query)
+    check_query = f"SELECT * FROM dataturn WHERE Datet = '{date_short}'"
+    
+    delete_query = f"DELETE FROM dataturn WHERE Datet = '{date_short}'"
 
     try:
 
@@ -32,11 +27,6 @@ def daily_task():
         # Check if data exists
         cur.execute(check_query)
         rows = cur.fetchall()
-
-        print(f"Data exists for date {date_short}. Running delete query...")
-        cur.execute(delete_query)
-        conn.commit()
-        print(f"Data deleted for date {date_short}.")
 
         if rows:
             print(f"Data exists for date {date_short}. Running delete query...")
@@ -50,3 +40,5 @@ def daily_task():
         conn.close()
     except Exception as e:
         print(f"An error occurred: {e}")
+
+daily_task()
