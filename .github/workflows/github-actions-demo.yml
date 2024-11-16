@@ -2,8 +2,7 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '03 6 * * *'  # Run at 6:55 AM UTC
-  workflow_dispatch:  # Allows manual runs
+    - cron: '03 6 * * *'  # Run at 6:03 AM UTC
 
 jobs:
   run-script:
