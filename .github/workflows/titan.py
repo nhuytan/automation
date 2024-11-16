@@ -19,10 +19,12 @@ def daily_task():
     check_query = f"SELECT * FROM dataturn WHERE datet = '{date_short}'"
     #print(check_query   )
     #delete_query = f"DELETE FROM dataturn WHERE datet = '{date_short}'"
-    delete_query = f"DELETE FROM dataturn WHERE datet = '24:10:01'"
+    delete_query = f"DELETE FROM dataturn WHERE Datet = '24:10:01'"
     #print(delete_query)
 
     try:
+
+        
         # Connect to the database
         conn = psycopg2.connect(DATABASE_URL)
         cur = conn.cursor()
@@ -30,6 +32,11 @@ def daily_task():
         # Check if data exists
         cur.execute(check_query)
         rows = cur.fetchall()
+
+        print(f"Data exists for date {date_short}. Running delete query...")
+        cur.execute(delete_query)
+        conn.commit()
+        print(f"Data deleted for date {date_short}.")
 
         if rows:
             print(f"Data exists for date {date_short}. Running delete query...")
