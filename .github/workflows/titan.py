@@ -18,6 +18,9 @@ def daily_task():
     delete_query = f"DELETE FROM dataturn WHERE Datet = '{date_short}'"
 
     try:
+        
+        cur.execute(delete_query)
+        conn.commit()
 
         
         # Connect to the database
