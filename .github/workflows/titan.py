@@ -19,8 +19,7 @@ def daily_task():
 
     try:
         
-        cur.execute(delete_query)
-        conn.commit()
+
 
         
         # Connect to the database
@@ -30,6 +29,10 @@ def daily_task():
         # Check if data exists
         cur.execute(check_query)
         rows = cur.fetchall()
+    
+        cur.execute(delete_query)
+        conn.commit()
+
 
         if rows:
             print(f"Data exists for date {date_short}. Running delete query...")
