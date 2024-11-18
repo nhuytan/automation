@@ -1,6 +1,5 @@
 import psycopg2
 from datetime import datetime
-import schedule
 import time
 
 # Database connection parameters
