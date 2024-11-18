@@ -15,7 +15,8 @@ def daily_task():
     # SQL queries
     check_query = f"SELECT * FROM dataturn WHERE Datet = '{date_short}'"
     
-    delete_query = f"DELETE FROM dataturn WHERE Datet = '{date_short}'"
+    #delete_query = f"DELETE FROM dataturn WHERE Datet = '{date_short}'"
+    delete_query = f"DELETE FROM dataturn'"
 
     try:
         # Connect to the database
