@@ -4,7 +4,8 @@ import schedule
 import time
 
 # Database connection parameters
-DATABASE_URL = "postgres://u65r3b5s8m85kd:p5e46844d5c895f0e5394aa710fa143e1b3f0ebaca8b494b491a6322c8c7442de@c7t0sffab2p4bc.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d9h1hlaafrv484"
+#DATABASE_URL = "postgres://u65r3b5s8m85kd:p5e46844d5c895f0e5394aa710fa143e1b3f0ebaca8b494b491a6322c8c7442de@c7t0sffab2p4bc.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d9h1hlaafrv484"
+DATABASE_URL = "postgres://u441pvtd8e6vts:p9915005381a379a3cf248f96097c48d4f64a005bb8e1cf01ac201eceb7a12967@c8lj070d5ubs83.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dekn82da4aom33"
 
 # Define the task to run at 1 AM
 def daily_task():
@@ -18,10 +19,6 @@ def daily_task():
     delete_query = f"DELETE FROM dataturn WHERE Datet = '{date_short}'"
 
     try:
-        
-
-
-        
         # Connect to the database
         conn = psycopg2.connect(DATABASE_URL)
         cur = conn.cursor()
@@ -29,11 +26,7 @@ def daily_task():
         # Check if data exists
         cur.execute(check_query)
         rows = cur.fetchall()
-    
-        cur.execute(delete_query)
-        conn.commit()
-
-
+        
         if rows:
             print(f"Data exists for date {date_short}. Running delete query...")
             cur.execute(delete_query)
