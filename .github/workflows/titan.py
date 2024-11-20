@@ -40,4 +40,32 @@ def daily_task():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+def backup():
+
+    # SQL queries
+    backup_query = """
+        INSERT INTO backup (datet, vl)
+        SELECT datet, vl FROM dataturn
+        ON CONFLICT (datet) DO NOTHING;
+    """
+
+
+    try:
+        # Connect to the database
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+
+        # Copy data from `backup` to `dataturn`
+        cur.execute(backup_query)
+        conn.commit()
+        print("Data from dataturn was backup to backup table.")
+
+
+        # Close the connection
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+backup()
 daily_task()
