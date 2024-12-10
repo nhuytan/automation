@@ -9,8 +9,16 @@ DATABASE_URL_STARSTRIP = "postgres://u4okmvdq8me96b:p9a7af23f37abb06398c8f02b53f
 DATABASE_URL_CROWN = "postgres://udvr6gbrdfptkb:peb1123169c4deca93379cd55d913dbc347693820c19dd55f120185a6bcff6850@cd1jo1mf6mehgh.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d357hseirb9lm1"
 DATABASE_URL_CLASSICNAIL = "postgres://ufhi4dfpt95dvn:p9aa11df4c8ab121a3d734e26d888961efecf2109bde5d978c9b54edee29fdead@c5flugvup2318r.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d3ev69nu274ni2"
 
+# create list of database_url
 
-db_url = [DATABASE_URL_TITAN, DATABASE_URL_STARSTRIP, DATABASE_URL_CROWN, DATABASE_URL_CLASSICNAIL]
+#db_url = [DATABASE_URL_TITAN, DATABASE_URL_STARSTRIP, DATABASE_URL_CROWN, DATABASE_URL_CLASSICNAIL]
+
+db_url = {
+    "titan": DATABASE_URL_TITAN,
+    "starstrip": DATABASE_URL_STARSTRIP,
+    "crown":DATABASE_URL_CROWN,
+    "classic":DATABASE_URL_CLASSICNAIL
+}
 
 # Define the task to run at 1 AM
 def daily_task():
@@ -46,7 +54,7 @@ def daily_task():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def backup(url):
+def backup(alias, url):
 
     # SQL queries
     backup_query = """
@@ -64,7 +72,7 @@ def backup(url):
         # Copy data from `backup` to `dataturn`
         cur.execute(backup_query)
         conn.commit()
-        print(f"Data from dataturn was backup to backup table for {url}")
+        print(f"Data from dataturn was backup to backup table for {alias}")
 
 
         # Close the connection
@@ -73,7 +81,7 @@ def backup(url):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-for url in db_url:
-    backup(url)
+for alias, url in db_url.items():
+    backup(alias, url)
 
 #daily_task()
