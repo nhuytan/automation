@@ -3,8 +3,14 @@ from datetime import datetime
 import time
 
 # Database connection parameters
-#DATABASE_URL = "postgres://u65r3b5s8m85kd:p5e46844d5c895f0e5394aa710fa143e1b3f0ebaca8b494b491a6322c8c7442de@c7t0sffab2p4bc.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d9h1hlaafrv484"
-DATABASE_URL = "postgres://u441pvtd8e6vts:p9915005381a379a3cf248f96097c48d4f64a005bb8e1cf01ac201eceb7a12967@c8lj070d5ubs83.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dekn82da4aom33"
+
+DATABASE_URL_TITAN = "postgres://u441pvtd8e6vts:p9915005381a379a3cf248f96097c48d4f64a005bb8e1cf01ac201eceb7a12967@c8lj070d5ubs83.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dekn82da4aom33"
+DATABASE_URL_STARSTRIP = "postgres://u4okmvdq8me96b:p9a7af23f37abb06398c8f02b53f67d6f5efb57099b6459fe424ba65185b8f9ce@ce5cavigtak40n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d4irea1nc6ba3h"
+DATABASE_URL_CROWN = "postgres://udvr6gbrdfptkb:peb1123169c4deca93379cd55d913dbc347693820c19dd55f120185a6bcff6850@cd1jo1mf6mehgh.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d357hseirb9lm1"
+DATABASE_URL_CLASSICNAIL = "postgres://ufhi4dfpt95dvn:p9aa11df4c8ab121a3d734e26d888961efecf2109bde5d978c9b54edee29fdead@c5flugvup2318r.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d3ev69nu274ni2"
+
+
+db_url = [DATABASE_URL_TITAN, DATABASE_URL_STARSTRIP, DATABASE_URL_CROWN, DATABASE_URL_CLASSICNAIL]
 
 # Define the task to run at 1 AM
 def daily_task():
@@ -40,7 +46,7 @@ def daily_task():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def backup():
+def backup(url):
 
     # SQL queries
     backup_query = """
@@ -52,13 +58,13 @@ def backup():
 
     try:
         # Connect to the database
-        conn = psycopg2.connect(DATABASE_URL)
+        conn = psycopg2.connect(url)
         cur = conn.cursor()
 
         # Copy data from `backup` to `dataturn`
         cur.execute(backup_query)
         conn.commit()
-        print("Data from dataturn was backup to backup table.")
+        print(f"Data from dataturn was backup to backup table for {url}")
 
 
         # Close the connection
@@ -67,5 +73,7 @@ def backup():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-backup()
-daily_task()
+for url in db_url:
+    backup(url)
+
+#daily_task()
